@@ -5,7 +5,7 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GRAY = (25, 25, 25)
 WIN_SIZE = 500
-
+# note
 
 # 1. Create a set of initial states with simple pattern (Ex. blinker)
 cur_states = []
