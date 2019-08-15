@@ -1,15 +1,12 @@
-import pygame, random
+import pygame
+import random
+import numpy as np
  
 # Define some colors and other constants
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GRAY = (25, 25, 25)
 WIN_SIZE = 500
-# note
-
-# 1. Create a set of initial states with simple pattern (Ex. blinker)
-cur_states = []
-next_states = []
 
 pygame.init()
  
@@ -34,7 +31,13 @@ while not done:
             done = True
  
     # --- Game logic should go here
-    
+    def cell_next_gen(x, y, world):
+        neighbours = np.sum(world[x - 1: x + 2, y - 1: y + 2]) - world[x, y]
+        if world[x, y] == 1 and not 2 <= neighbours <= 3:
+            return 0
+        elif neighbours == 3:
+            return 1
+        return world[x, y]
 
  
     # --- Screen-clearing code goes here
@@ -44,15 +47,6 @@ while not done:
     screen.fill(GRAY)
  
     # --- Drawing code should go here
-    x = 3
-
-    while x < 500:
-        y = 3
-        while y < 500:
-            pygame.draw.rect(screen, WHITE, pygame.Rect(x, y, 20, 20))
-            y+= 25
-
-        x += 25
    
 
     # --- Go ahead and update the screen with what we've drawn.
