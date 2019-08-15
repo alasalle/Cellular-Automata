@@ -3,15 +3,16 @@ import random
 import numpy as np
  
 # Define some colors and other constants
+RED = (255,0,0)
+SILVER = (192,192,192)
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
-GRAY = (25, 25, 25)
-WIN_SIZE = 500
-CELL_SIZE = 20
+GREEN = (0, 255, 0)
+WIN_SIZE = 600
+CELL_SIZE = 25
 MARGIN = 5
 
 world = np.random.choice(a=[0, 1], size=(WIN_SIZE // CELL_SIZE + MARGIN, WIN_SIZE // CELL_SIZE + MARGIN))
-
 
 pygame.init()
  
@@ -49,10 +50,22 @@ while not done:
  
     # Here, we clear the screen to gray. Don't put other drawing commands
     # above this, or they will be erased with this command.
-    screen.fill(GRAY)
+    screen.fill(WHITE)
  
     # --- Drawing code should go here
-   
+    newWorld = np.copy(world)
+    for (x, y), value in np.ndenumerate(world):
+        newWorld[x, y] = cell_next_gen(x, y, world)
+        if newWorld[x, y] == 1:
+            pygame.draw.rect(screen, WHITE, (CELL_SIZE * (x - 1), CELL_SIZE * (y - 1), CELL_SIZE, CELL_SIZE), MARGIN)
+            pygame.draw.rect(screen, GREEN, (CELL_SIZE * (x - 1), CELL_SIZE * (y - 1), CELL_SIZE, CELL_SIZE), 0)
+
+        else:
+            pygame.draw.rect(screen, WHITE, (CELL_SIZE * (x - 1), CELL_SIZE * (y - 1), CELL_SIZE, CELL_SIZE), MARGIN)
+            pygame.draw.rect(screen, SILVER, (CELL_SIZE * (x - 1), CELL_SIZE * (y - 1), CELL_SIZE, CELL_SIZE), 0)
+
+
+    world = newWorld
 
     # --- Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
