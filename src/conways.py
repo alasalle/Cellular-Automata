@@ -7,6 +7,11 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GRAY = (25, 25, 25)
 WIN_SIZE = 500
+CELL_SIZE = 20
+MARGIN = 5
+
+world = np.random.choice(a=[0, 1], size=(WIN_SIZE // CELL_SIZE + MARGIN, WIN_SIZE // CELL_SIZE + MARGIN))
+
 
 pygame.init()
  
